@@ -4,7 +4,7 @@ const path = require("path")
  
 
 // Function to send an email
-const sendMail = async ({
+const sendMail =  ({
   to,
   from,
   subject,
@@ -15,10 +15,12 @@ const sendMail = async ({
 try {
   
   const transporter = nodemailer.createTransport({
-    service: "gmail", // Use Gmail service
+    host: "smtpout.secureserver.net", // replace with your SMTP host
+    port: 587, // replace with your SMTP port
+    secure: false, // true for 465, false for other ports (587 is typically used for TLS)
     auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD,
+      user: process.env.EMAIL, // your email address
+      pass: process.env.PASSWORD, // your email password
     },
   });
 
@@ -33,7 +35,7 @@ extName: ".hbs",
 };
 
 // Attach the handlebars plugin to the transporter
-await transporter.use("compile", hbs(handlebarOptions));
+ transporter.use("compile", hbs(handlebarOptions));
 
 const mailOptions = {
 from,
@@ -44,7 +46,7 @@ context: { email: from, name, phoneNumber, query },
 };
 
 // Send the email
- await transporter.sendMail(mailOptions, (error, info) => {
+ transporter.sendMail(mailOptions, (error, info) => {
 if (error) {
   console.log({ message: error });
 }
