@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer")
 const hbs = require("nodemailer-express-handlebars")
 const path = require("path")
- 
+
 
 // Function to send an email
 const sendMail =  ({

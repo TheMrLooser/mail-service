@@ -54,7 +54,7 @@ app.get("/", (req, res) => {
 });
 
 app.use(() => {
-  const error = new HttpError("This route does not exist", 404);
+  const error = {message:"This route does not exist",statusCode:404};
   throw error;
 });
 
