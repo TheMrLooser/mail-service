@@ -4,7 +4,7 @@ const path = require("path")
  
 
 // Function to send an email
-const sendMail = ({
+const sendMail = async ({
   to,
   from,
   subject,
@@ -33,7 +33,7 @@ extName: ".hbs",
 };
 
 // Attach the handlebars plugin to the transporter
-transporter.use("compile", hbs(handlebarOptions));
+await transporter.use("compile", hbs(handlebarOptions));
 
 const mailOptions = {
 from,
@@ -44,7 +44,7 @@ context: { email: from, name, phoneNumber, query },
 };
 
 // Send the email
-transporter.sendMail(mailOptions, (error, info) => {
+ await transporter.sendMail(mailOptions, (error, info) => {
 if (error) {
   console.log({ message: error });
 }

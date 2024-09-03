@@ -2,6 +2,11 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const sendMail = require("./email");
+const nodemailer = require("nodemailer")
+const hbs = require("nodemailer-express-handlebars")
+const path = require("path")
+
+
 
 dotenv.config({ path: ".env" });
 
@@ -28,14 +33,57 @@ app.post("/sent-mail", async (req, res) => {
         .status(412)
         .json({ error: true, message: "Missign required field " });
     }
-    await sendMail({
-      to,
-      from: email,
-      subject: "New Contact Request",
-      name,
-      phoneNumber,
-      query,
+    // await sendMail({
+    //   to,
+    //   from: email,
+    //   subject: "New Contact Request",
+    //   name,
+    //   phoneNumber,
+    //   query,
+    // });
+
+    try {
+  
+      const transporter = nodemailer.createTransport({
+        service: "gmail", // Use Gmail service
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASSWORD,
+        },
+      });
+    
+    const handlebarOptions = {
+    viewEngine: {
+      extname: ".hbs",
+      layoutsDir: path.resolve("./views"),
+      defaultLayout: "email",
+    },
+    viewPath: path.resolve("./views"),
+    extName: ".hbs",
+    };
+    
+    // Attach the handlebars plugin to the transporter
+     transporter.use("compile", hbs(handlebarOptions));
+    
+    const mailOptions = {
+    from:email,
+    to,
+    subject: "New Contact Request",
+    template: "email",
+    context: { email: from, name, phoneNumber, query },
+    };
+    
+    // Send the email
+     transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log({ message: error });
+    }
     });
+    } catch (error) {
+      console.log(error)
+    }
+
+
     return res.status(200).json({ success: true, message: "Mail sent" });
   } catch (error) {
     return res
