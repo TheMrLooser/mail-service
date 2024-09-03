@@ -70,7 +70,7 @@ app.post("/sent-mail", async (req, res) => {
     to,
     subject: "New Contact Request",
     template: "email",
-    context: { email: from, name, phoneNumber, query },
+    context: { email, name, phoneNumber, query },
     };
     
     // Send the email
