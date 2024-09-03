@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 600px;
+        margin: auto;
+      }
+      .header {
+        text-align: center;
+        padding: 10px 0;
+      }
+      .header h1 {
+        color: #333;
+      }
+      .content {
+        margin: 20px 0;
+      }
+      .footer {
+        text-align: center;
+        font-size: 12px;
+        color: #777;
+        margin-top: 20px;
+      }
+      .button {
+        display: inline-block;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+      .span {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Hey! You got new contact request. Let's catch up!</h1>
+      </div>
+      <div class="content">
+        <h5>Customer Details</h5>
+        <span class="span"
+        ><p>Name : </p>
+        <p>{{name}}</p></span
+      >
+        <span class="span"
+          ><p>Email : </p>
+          <p>{{email}}</p></span
+        >
+        <span class="span"
+          ><p>Phone Number : </p>
+          <p>{{phoneNumber}}</p></span
+        >
+        <h5>Query</h5>
+        <p>{{query}}</p>
+      </div>
+      <div class="footer">
+        <p>Thank you for being a valued customer!</p>
+        <p>&copy; {{year}} Your Company. All rights reserved.</p>
+      </div>
+    </div>
+  </body>
+</html>
